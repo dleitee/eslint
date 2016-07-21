@@ -209,6 +209,10 @@ function generateRuleIndexPage(basedir) {
     find(path.join(basedir, "/lib/rules/")).filter(fileType("js")).forEach(function(filename) {
         var rule = require(filename);
 
+        if (rule.meta.deprecated) {
+            return;
+        }
+
         var basename = path.basename(filename, ".js"),
             output = {
                 name: basename,
